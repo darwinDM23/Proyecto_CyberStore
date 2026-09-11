@@ -1,0 +1,24 @@
+# Compilado de Maven
+target/
+
+# Base de datos H2 local (no se debe versionar)
+data/
+*.db
+*.trace.db
+*.lock.db
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Variables de entorno / credenciales locales
+.env
+application-local.properties
