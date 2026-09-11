@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head('Inicio')}"></head>
+<body>
+    <div th:replace="~{layout/fragments :: header}"></div>
+
+    <main>
+        <div class="baner">
+            <img th:src="@{/img/home/banner.jpg}" alt="Banner CiberStore"/>
+        </div>
+
+        <h1 class="titulo-seccion">Encuentra la tecnologia que necesitas</h1>
+
+        <div class="caja">
+            <a class="box" th:href="@{/productos/monitores}">
+                <h2>CPU</h2>
+                <img th:src="@{/img/home/cat-cpu.png}" alt="CPU"/>
+            </a>
+            <a class="box" th:href="@{/productos/monitores}">
+                <h2>Monitores</h2>
+                <img th:src="@{/img/home/cat-monitor.png}" alt="Monitores"/>
+            </a>
+            <a class="box" th:href="@{/marcas}">
+                <h2>Laptops</h2>
+                <img th:src="@{/img/home/cat-laptop.png}" alt="Laptops"/>
+            </a>
+            <a class="box" th:href="@{/productos/impresoras}">
+                <h2>Impresoras</h2>
+                <img th:src="@{/img/home/cat-impresora.png}" alt="Impresoras"/>
+            </a>
+            <a class="box" th:href="@{/productos/tablets}">
+                <h2>Tablets</h2>
+                <img th:src="@{/img/home/cat-almacenamiento.png}" alt="Tablets"/>
+            </a>
+            <a class="box" th:href="@{/productos/mouse}">
+                <h2>Mouse</h2>
+                <img th:src="@{/img/home/cat-componentes.png}" alt="Mouse"/>
+            </a>
+        </div>
+
+        <h2 class="titulo-seccion">Categorias disponibles</h2>
+        <div class="caja">
+            <a class="box" th:each="categoria : ${categorias}"
+               th:href="@{'/productos/' + ${categoria.slug}}">
+                <h2 th:text="${categoria.nombre}">Categoria</h2>
+            </a>
+        </div>
+    </main>
+
+    <div th:replace="~{layout/fragments :: footer}"></div>
+</body>
+</html>

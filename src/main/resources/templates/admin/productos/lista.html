@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head('Administrar productos')}"></head>
+<body>
+    <div th:replace="~{layout/fragments :: header}"></div>
+
+    <main>
+        <h1 class="titulo-seccion">Administrar productos</h1>
+
+        <div class="admin-toolbar">
+            <a class="btn" th:href="@{/admin/productos/nuevo}">+ Nuevo producto</a>
+            <a class="btn" th:href="@{/admin/ventas}">Ver ventas</a>
+        </div>
+
+        <table class="admin-tabla">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Marca</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="producto : ${productos}">
+                    <td th:text="${producto.id}">1</td>
+                    <td th:text="${producto.nombre}">Nombre</td>
+                    <td th:text="${producto.categoria.nombre}">Categoria</td>
+                    <td th:text="${producto.marca != null ? producto.marca.nombre : '-'}">Marca</td>
+                    <td th:text="'S/ ' + ${#numbers.formatDecimal(producto.precio, 1, 2)}">S/ 0.00</td>
+                    <td th:text="${producto.stock}">0</td>
+                    <td>
+                        <a class="btn btn-small" th:href="@{'/admin/productos/' + ${producto.id} + '/editar'}">Editar</a>
+                        <form th:action="@{'/admin/productos/' + ${producto.id} + '/eliminar'}" method="post"
+                              style="display:inline;">
+                            <button type="submit" class="btn btn-small btn-danger"
+                                    onclick="return confirm('¿Eliminar este producto?');">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <div th:replace="~{layout/fragments :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head('Promociones')}"></head>
+<body>
+    <div th:replace="~{layout/fragments :: header}"></div>
+
+    <main>
+        <h1 class="titulo-seccion">Promociones del mes</h1>
+        <div class="tres-productos">
+            <div class="contenedor-producto">
+                <img th:src="@{/img/productos/mouse-logitech-g203.avif}" alt="Promo mouse"/>
+                <h2>2x1 en mouse gamer Logitech</h2>
+                <p>Valido en tienda y pagina web hasta agotar stock.</p>
+                <p class="precio">Solo esta semana</p>
+                <a class="btn btn-small" th:href="@{/productos/mouse}">Ver mouse</a>
+            </div>
+            <div class="contenedor-producto">
+                <img th:src="@{/img/productos/impresora-epson-l3250.webp}" alt="Promo impresora"/>
+                <h2>15% de descuento en impresoras EcoTank</h2>
+                <p>Aplica en compras registradas desde la pagina web.</p>
+                <p class="precio">Codigo: ECOTANK15</p>
+                <a class="btn btn-small" th:href="@{/productos/impresoras}">Ver impresoras</a>
+            </div>
+            <div class="contenedor-producto">
+                <img th:src="@{/img/productos/tablet-ipad-air.webp}" alt="Promo tablet"/>
+                <h2>Tablets con cuotas sin intereses</h2>
+                <p>Hasta 12 cuotas en tablets seleccionadas.</p>
+                <p class="precio">Consulta condiciones</p>
+                <a class="btn btn-small" th:href="@{/productos/tablets}">Ver tablets</a>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{layout/fragments :: footer}"></div>
+</body>
+</html>

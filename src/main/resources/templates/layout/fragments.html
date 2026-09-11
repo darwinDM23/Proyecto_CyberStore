@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>fragmentos</title></head>
+<body>
+
+<!-- ============ HEAD comun ============ -->
+<th:block th:fragment="head(titulo)">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${titulo} + ' | CiberStore'">CiberStore</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+</th:block>
+
+<!-- ============ HEADER + menu ============ -->
+<th:block th:fragment="header">
+    <header>
+        <div class="header-left">
+            <img th:src="@{/img/home/logo.png}" alt="CiberStore"/>
+            <h1><a th:href="@{/}">CiberStore</a></h1>
+        </div>
+        <div class="search-container">
+            <div class="container_busqueda">
+                <input type="text" placeholder="Buscar productos..."/>
+                <i class="fa-solid fa-magnifying-glass icon"></i>
+            </div>
+            <a class="carrito-link" th:href="@{/carrito}">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Carrito
+                <span class="badge" th:text="${@carrito.cantidadTotalItems}">0</span>
+            </a>
+        </div>
+    </header>
+    <div class="marcador-container">
+        <ul class="marcador">
+            <li class="menu-despegable">
+                <a href="#">Productos</a>
+                <ul class="sub-menu">
+                    <li><a th:href="@{/productos/mouse}">Mouse</a></li>
+                    <li><a th:href="@{/productos/monitores}">Monitores</a></li>
+                    <li><a th:href="@{/productos/impresoras}">Impresoras</a></li>
+                    <li><a th:href="@{/productos/tablets}">Tablets</a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{/marcas}">Marcas</a></li>
+            <li><a th:href="@{/carrito}">Ventas</a></li>
+            <li><a th:href="@{/nosotros}">Nosotros</a></li>
+            <li><a th:href="@{/promociones}">Promociones</a></li>
+            <li><a th:href="@{/admin/productos}">Administracion</a></li>
+        </ul>
+    </div>
+</th:block>
+
+<!-- ============ FOOTER ============ -->
+<th:block th:fragment="footer">
+    <footer class="footer">
+        <div class="row">
+            <div class="col">
+                <h3>CiberStore</h3>
+                <p>Tecnologia con garantia y buen precio.</p>
+            </div>
+            <div class="col">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a th:href="@{/marcas}">Marcas</a></li>
+                    <li><a th:href="@{/nosotros}">Nosotros</a></li>
+                    <li><a th:href="@{/promociones}">Promociones</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>Lima, Peru</li>
+                    <li>contacto@ciberstore.pe</li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2026 CiberStore - Proyecto academico CIBERTEC</p>
+    </footer>
+</th:block>
+
+</body>
+</html>

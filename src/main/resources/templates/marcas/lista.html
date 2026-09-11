@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head('Marcas')}"></head>
+<body>
+    <div th:replace="~{layout/fragments :: header}"></div>
+
+    <main>
+        <h1 class="titulo-seccion">Nuestras marcas</h1>
+
+        <div class="marca" th:each="marca : ${marcas}">
+            <div class="logo-container">
+                <img th:if="${marca.logoUrl != null}" th:src="@{${marca.logoUrl}}" th:alt="${marca.nombre}"/>
+                <div th:if="${marca.logoUrl == null}" class="marca-sin-logo" th:text="${marca.nombre}">Marca</div>
+            </div>
+            <div class="informacion-container">
+                <h2 th:text="${marca.nombre}">Nombre de marca</h2>
+                <p th:text="${marca.descripcion}">Descripcion de la marca</p>
+                <p>
+                    <a class="btn btn-small" th:href="@{'/productos/mouse'}"
+                       th:if="${!marca.productos.isEmpty()}">
+                        Ver productos de esta marca
+                    </a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{layout/fragments :: footer}"></div>
+</body>
+</html>

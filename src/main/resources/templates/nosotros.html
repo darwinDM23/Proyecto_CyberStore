@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head('Nosotros')}"></head>
+<body>
+    <div th:replace="~{layout/fragments :: header}"></div>
+
+    <main>
+        <h1 class="titulo-seccion">Quienes somos</h1>
+        <div class="content">
+            <p>
+                CiberStore es una tienda especializada en tecnologia con mas de 25 anos de
+                experiencia en el mercado. Ofrecemos productos de las mejores marcas -Acer, HP,
+                Lenovo, Asus, Apple, Samsung y muchas mas- respaldados por garantia y atencion
+                personalizada.
+            </p>
+            <p>
+                Nuestra mision es acercar la tecnologia a estudiantes, profesionales y empresas,
+                brindando siempre precios competitivos, variedad de productos y un servicio de
+                postventa confiable.
+            </p>
+            <p>
+                Este sitio nacio como un proyecto academico del curso de Lenguaje de Programacion
+                en CIBERTEC, y hoy evoluciona incorporando persistencia de datos, control de
+                versiones y generacion de reportes, aplicando buenas practicas de desarrollo de
+                software empresarial.
+            </p>
+        </div>
+
+        <div class="mapa" style="text-align:center; margin-bottom: 40px;">
+            <h2 class="titulo-seccion">Ubicacion</h2>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.775042955302!2d-77.0636566241442!3d-11.990061888242314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105ce53c69e3575%3A0x586e76dff7534a44!2sCIBERTEC!5e0!3m2!1ses-419!2spe!4v1739908794274!5m2!1ses-419!2spe"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </main>
+
+    <div th:replace="~{layout/fragments :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head(${categoriaActual != null ? categoriaActual.nombre : 'Productos'})}"></head>
+<body>
+    <div th:replace="~{layout/fragments :: header}"></div>
+
+    <main>
+        <h1 class="titulo-seccion" th:text="${categoriaActual != null ? categoriaActual.nombre : 'Productos'}">Productos</h1>
+
+        <div class="tres-productos">
+            <div class="contenedor-producto" th:each="producto : ${productos}">
+                <img th:src="@{${producto.imagenUrl}}" th:alt="${producto.nombre}"/>
+                <h2 th:text="${producto.nombre}">Nombre del producto</h2>
+                <p th:if="${producto.marca != null}" th:text="'Marca: ' + ${producto.marca.nombre}">Marca</p>
+                <p th:text="${producto.descripcion}">Descripcion</p>
+                <p class="stock-bajo" th:if="${producto.stock lt 5}"
+                   th:text="'Ultimas unidades: ' + ${producto.stock}">Stock bajo</p>
+                <p class="precio" th:text="'S/ ' + ${#numbers.formatDecimal(producto.precio, 1, 2)}">S/ 0.00</p>
+
+                <form th:action="@{'/carrito/agregar/' + ${producto.id}}" method="post">
+                    <input type="number" name="cantidad" value="1" min="1" th:max="${producto.stock}"/>
+                    <button type="submit" class="btn btn-small" th:disabled="${producto.stock == 0}">
+                        Agregar al carrito
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <p th:if="${#lists.isEmpty(productos)}" style="text-align:center;padding:30px;">
+            No hay productos registrados en esta categoria todavia.
+        </p>
+    </main>
+
+    <div th:replace="~{layout/fragments :: footer}"></div>
+</body>
+</html>
