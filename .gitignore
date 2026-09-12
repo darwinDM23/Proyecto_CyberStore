@@ -22,3 +22,4 @@ Thumbs.db
 # Variables de entorno / credenciales locales
 .env
 application-local.properties
+.vs/

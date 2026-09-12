@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/fragments :: head(titulo='Acceso denegado')}"></head>
+
+<body>
+
+    <div th:replace="~{layout/fragments :: header}"></div>
+
+    <main style="text-align: center; padding: 70px 20px;">
+
+        <div style="max-width: 600px; margin: 0 auto;">
+
+            <h1 class="titulo-seccion">
+                Acceso denegado
+            </h1>
+
+            <h2 style="font-size: 60px; margin: 20px 0;">
+                403
+            </h2>
+
+            <p style="font-size: 18px; margin-bottom: 30px;">
+                No tienes permisos para acceder a esta sección de CiberStore.
+            </p>
+
+            <a class="btn" th:href="@{/}">
+                Volver al inicio
+            </a>
+
+        </div>
+
+    </main>
+
+    <div th:replace="~{layout/fragments :: footer}"></div>
+
+</body>
+</html>

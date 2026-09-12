@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProductoController {
@@ -23,6 +24,15 @@ public class ProductoController {
         model.addAttribute("productos", productoService.listarPorCategoria(slug));
         model.addAttribute("categoriaActual", categoriaRepository.findBySlug(slug).orElse(null));
         model.addAttribute("categorias", categoriaRepository.findAll());
+        return "productos/lista";
+    }
+
+    @GetMapping("/buscar")
+    public String buscarProductos(@RequestParam("q") String q, Model model) {
+        model.addAttribute("productos", productoService.buscarPorNombre(q));
+        model.addAttribute("categoriaActual", null);
+        model.addAttribute("categorias", categoriaRepository.findAll());
+        model.addAttribute("busqueda", q);
         return "productos/lista";
     }
 }

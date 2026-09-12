@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/admin/ventas")
@@ -24,9 +25,18 @@ public class VentaAdminController {
     }
 
     @GetMapping
-    public String listar(Model model) {
+    public String listar(@RequestParam(required = false, defaultValue = "") String cliente,
+                     Model model) {
+
+    if (cliente.isBlank()) {
         model.addAttribute("ventas", ventaService.listarTodas());
-        return "admin/ventas/lista";
+    } else {
+        model.addAttribute("ventas", ventaService.buscarPorCliente(cliente.trim()));
+    }
+
+    model.addAttribute("cliente", cliente);
+
+    return "admin/ventas/lista";
     }
 
     @GetMapping("/{id}")

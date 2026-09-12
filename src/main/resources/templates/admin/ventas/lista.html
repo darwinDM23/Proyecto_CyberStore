@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/fragments :: head('Ventas')}"></head>
+<head th:replace="~{layout/fragments :: head(titulo='Ventas')}"></head>
 <body>
     <div th:replace="~{layout/fragments :: header}"></div>
 
@@ -13,7 +13,19 @@
                 Descargar reporte PDF (JasperReports)
             </a>
         </div>
+        
+        <form th:action="@{/admin/ventas}" method="get"
+      style="display:flex; gap:10px; justify-content:center; margin:20px 0;">
 
+    <input type="text"
+           name="cliente"
+           th:value="${cliente}"
+           placeholder="Buscar por cliente"/>
+
+    <button type="submit" class="btn">Buscar</button>
+
+    <a class="btn" th:href="@{/admin/ventas}">Limpiar</a>
+</form>
         <table class="admin-tabla">
             <thead>
                 <tr>
@@ -23,6 +35,7 @@
                     <th>Items</th>
                     <th>Total</th>
                     <th>Estado</th>
+                    <th>Metodo de pago</th>
                     <th></th>
                 </tr>
             </thead>
@@ -34,13 +47,16 @@
                     <td th:text="${venta.detalles.size()}">0</td>
                     <td th:text="'S/ ' + ${#numbers.formatDecimal(venta.total, 1, 2)}">S/ 0.00</td>
                     <td th:text="${venta.estado}">PAGADA</td>
+                    <td th:text="${venta.metodoPago != null ? venta.metodoPago : 'No registrado'}">
+                      No registrado
+                    </td>
                     <td><a class="btn btn-small" th:href="@{'/admin/ventas/' + ${venta.id}}">Ver</a></td>
                 </tr>
             </tbody>
         </table>
 
         <p th:if="${#lists.isEmpty(ventas)}" style="text-align:center; padding:30px;">
-            Todavia no se ha registrado ninguna venta.
+            No se encontraron ventas.
         </p>
     </main>
 

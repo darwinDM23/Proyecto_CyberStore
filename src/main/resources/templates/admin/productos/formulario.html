@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/fragments :: head(${producto.id} != null ? 'Editar producto' : 'Nuevo producto')}"></head>
+<head th:replace="~{layout/fragments :: head(titulo=${producto.id} != null ? 'Editar producto' : 'Nuevo producto')}"></head>
 <body>
     <div th:replace="~{layout/fragments :: header}"></div>
 

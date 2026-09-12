@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/fragments :: head('Administrar productos')}"></head>
+<head th:replace="~{layout/fragments :: head(titulo='Administrar productos')}"></head>
 <body>
     <div th:replace="~{layout/fragments :: header}"></div>
 
@@ -8,9 +8,16 @@
         <h1 class="titulo-seccion">Administrar productos</h1>
 
         <div class="admin-toolbar">
-            <a class="btn" th:href="@{/admin/productos/nuevo}">+ Nuevo producto</a>
-            <a class="btn" th:href="@{/admin/ventas}">Ver ventas</a>
-        </div>
+    <a class="btn" th:href="@{/admin/productos/nuevo}">+ Nuevo producto</a>
+
+    <a class="btn" th:href="@{/admin/ventas}">Ver ventas</a>
+
+    <a class="btn"
+       th:href="@{/admin/productos/reporte}"
+       target="_blank">
+        Descargar reporte de inventario PDF
+    </a>
+</div>
 
         <table class="admin-tabla">
             <thead>

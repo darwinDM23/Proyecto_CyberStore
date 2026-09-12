@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/fragments :: head(${categoriaActual != null ? categoriaActual.nombre : 'Productos'})}"></head>
+<head th:replace="~{layout/fragments :: head(titulo=${categoriaActual != null ? categoriaActual.nombre : 'Productos'})}"></head>
 <body>
     <div th:replace="~{layout/fragments :: header}"></div>
 
@@ -27,7 +27,7 @@
         </div>
 
         <p th:if="${#lists.isEmpty(productos)}" style="text-align:center;padding:30px;">
-            No hay productos registrados en esta categoria todavia.
+            No se encontraron productos para tu búsqueda.
         </p>
     </main>
 

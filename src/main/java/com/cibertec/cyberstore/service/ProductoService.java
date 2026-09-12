@@ -27,6 +27,11 @@ public class ProductoService {
     }
 
     @Transactional(readOnly = true)
+    public List<Producto> buscarPorNombre(String nombre) {
+        return productoRepository.findByNombreContainingIgnoreCase(nombre);
+    }
+
+    @Transactional(readOnly = true)
     public Producto buscarPorId(Long id) {
         return productoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado: " + id));

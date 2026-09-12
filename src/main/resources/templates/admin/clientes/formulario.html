@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head(titulo=${cliente.id} != null ? 'Editar cliente' : 'Nuevo cliente')}"></head>
+<body>
+
+    <div th:replace="~{layout/fragments :: header}"></div>
+
+    <main>
+        <h1 class="titulo-seccion"
+            th:text="${cliente.id} != null ? 'Editar cliente' : 'Nuevo cliente'">
+            Cliente
+        </h1>
+
+        <form class="admin-form"
+              th:action="@{/admin/clientes/guardar}"
+              method="post"
+              th:object="${cliente}">
+
+            <input type="hidden" th:field="*{id}"/>
+
+            <label>Nombre completo</label>
+            <input type="text"
+                   th:field="*{nombre}"
+                   required/>
+
+            <label>Correo electronico</label>
+            <input type="email"
+                   th:field="*{email}"
+                   required/>
+
+            <label>Telefono</label>
+            <input type="text"
+                   th:field="*{telefono}"/>
+
+            <label>Direccion</label>
+            <input type="text"
+                   th:field="*{direccion}"/>
+
+            <div style="text-align:center; margin-top:20px;">
+                <button type="submit" class="btn">
+                    Guardar
+                </button>
+
+                <a class="btn btn-danger"
+                   th:href="@{/admin/clientes}">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </main>
+
+    <div th:replace="~{layout/fragments :: footer}"></div>
+
+</body>
+</html>

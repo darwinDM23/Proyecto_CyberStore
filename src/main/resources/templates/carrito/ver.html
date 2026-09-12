@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/fragments :: head('Mi carrito')}"></head>
+<head th:replace="~{layout/fragments :: head(titulo='Mi carrito')}"></head>
 <body>
     <div th:replace="~{layout/fragments :: header}"></div>
 
@@ -64,6 +64,14 @@
 
                 <label>Direccion de entrega</label>
                 <input type="text" name="direccion"/>
+                <label>Metodo de pago</label>
+<select name="metodoPago" required>
+    <option value="">Seleccione un metodo de pago</option>
+    <option value="EFECTIVO">Efectivo</option>
+    <option value="YAPE">Yape</option>
+    <option value="PLIN">Plin</option>
+    <option value="TARJETA">Tarjeta</option>
+</select>
 
                 <div style="text-align:center; margin-top:18px;">
                     <button type="submit" class="btn">Confirmar compra</button>

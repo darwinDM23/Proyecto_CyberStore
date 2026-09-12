@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/fragments :: head('Compra confirmada')}"></head>
+<head th:replace="~{layout/fragments :: head(titulo='Compra confirmada')}"></head>
 <body>
     <div th:replace="~{layout/fragments :: header}"></div>
 
@@ -9,6 +9,7 @@
             <h1>Gracias por tu compra, <span th:text="${venta.cliente.nombre}">Cliente</span>!</h1>
             <p>Numero de venta: <strong th:text="${venta.id}">0</strong></p>
             <p>Total pagado: S/ <strong th:text="${#numbers.formatDecimal(venta.total, 1, 2)}">0.00</strong></p>
+            <p>Metodo de pago:<strong th:text="${venta.metodoPago}">Metodo</strong></p>
             <p>Te enviaremos la confirmacion al correo <strong th:text="${venta.cliente.email}">correo</strong></p>
         </div>
 

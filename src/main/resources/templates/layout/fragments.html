@@ -1,82 +1,321 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>fragmentos</title></head>
+
+<head>
+    <title>fragmentos</title>
+</head>
+
 <body>
 
 <!-- ============ HEAD comun ============ -->
 <th:block th:fragment="head(titulo)">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title th:text="${titulo} + ' | CiberStore'">CiberStore</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+
+    <title th:text="${titulo} + ' | CiberStore'">
+        CiberStore
+    </title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}"/>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
 </th:block>
 
-<!-- ============ HEADER + menu ============ -->
+
+<!-- ============ HEADER + MENU ============ -->
 <th:block th:fragment="header">
+
     <header>
+
         <div class="header-left">
-            <img th:src="@{/img/home/logo.png}" alt="CiberStore"/>
-            <h1><a th:href="@{/}">CiberStore</a></h1>
+
+            <img th:src="@{/img/home/logo.png}"
+                 alt="CiberStore"/>
+
+            <h1>
+                <a th:href="@{/}">
+                    CiberStore
+                </a>
+            </h1>
+
         </div>
+
+
         <div class="search-container">
-            <div class="container_busqueda">
-                <input type="text" placeholder="Buscar productos..."/>
-                <i class="fa-solid fa-magnifying-glass icon"></i>
-            </div>
-            <a class="carrito-link" th:href="@{/carrito}">
+
+            <!-- BUSCADOR -->
+            <form class="container_busqueda"
+                  th:action="@{/buscar}"
+                  method="get">
+
+                <input type="text"
+                       name="q"
+                       placeholder="Buscar productos..."
+                       th:value="${busqueda}"/>
+
+                <button type="submit"
+                        style="background:none;
+                               border:none;
+                               cursor:pointer;">
+
+                    <i class="fa-solid fa-magnifying-glass icon"></i>
+
+                </button>
+
+            </form>
+
+
+            <!-- CARRITO -->
+            <a class="carrito-link"
+               th:href="@{/carrito}">
+
                 <i class="fa-solid fa-cart-shopping"></i>
+
                 Carrito
-                <span class="badge" th:text="${@carrito.cantidadTotalItems}">0</span>
+
+                <span class="badge"
+                      th:text="${@carrito.cantidadTotalItems}">
+                    0
+                </span>
+
             </a>
+
         </div>
+
     </header>
+
+
+    <!-- ============ MENU PRINCIPAL ============ -->
     <div class="marcador-container">
+
         <ul class="marcador">
+
+            <!-- PRODUCTOS -->
             <li class="menu-despegable">
-                <a href="#">Productos</a>
+
+                <a href="#">
+                    Productos
+                </a>
+
                 <ul class="sub-menu">
-                    <li><a th:href="@{/productos/mouse}">Mouse</a></li>
-                    <li><a th:href="@{/productos/monitores}">Monitores</a></li>
-                    <li><a th:href="@{/productos/impresoras}">Impresoras</a></li>
-                    <li><a th:href="@{/productos/tablets}">Tablets</a></li>
+
+                    <li>
+                        <a th:href="@{/productos/mouse}">
+                            Mouse
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/productos/monitores}">
+                            Monitores
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/productos/impresoras}">
+                            Impresoras
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/productos/tablets}">
+                            Tablets
+                        </a>
+                    </li>
+
                 </ul>
+
             </li>
-            <li><a th:href="@{/marcas}">Marcas</a></li>
-            <li><a th:href="@{/carrito}">Ventas</a></li>
-            <li><a th:href="@{/nosotros}">Nosotros</a></li>
-            <li><a th:href="@{/promociones}">Promociones</a></li>
-            <li><a th:href="@{/admin/productos}">Administracion</a></li>
+
+
+            <!-- MARCAS -->
+            <li>
+                <a th:href="@{/marcas}">
+                    Marcas
+                </a>
+            </li>
+
+
+            <!-- MIS COMPRAS -->
+            <li>
+                <a th:href="@{/carrito}">
+                    Mis Compras
+                </a>
+            </li>
+
+
+            <!-- NOSOTROS -->
+            <li>
+                <a th:href="@{/nosotros}">
+                    Nosotros
+                </a>
+            </li>
+
+
+            <!-- PROMOCIONES -->
+            <li>
+                <a th:href="@{/promociones}">
+                    Promociones
+                </a>
+            </li>
+
+
+            <!-- ADMINISTRACION -->
+            <li class="menu-despegable">
+
+                <a href="#">
+                    Administracion
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a th:href="@{/admin/productos}">
+                            Productos
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/admin/clientes}">
+                            Clientes
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/admin/proveedores}">
+                            Proveedores
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/admin/ventas}">
+                            Mis Ventas
+                        </a>
+                    </li>
+
+
+                    <!-- CERRAR SESION -->
+                    <li>
+
+                        <form th:action="@{/logout}"
+                              method="post"
+                              style="margin:0;">
+
+                            <button type="submit"
+                                    style="
+                                        width:100%;
+                                        background:none;
+                                        border:none;
+                                        color:white;
+                                        cursor:pointer;
+                                        text-align:left;
+                                        padding:10px;
+                                        font-family:inherit;
+                                        font-size:inherit;
+                                    ">
+
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Cerrar sesion
+
+                            </button>
+
+                        </form>
+
+                    </li>
+
+                </ul>
+
+            </li>
+
         </ul>
+
     </div>
+
 </th:block>
+
 
 <!-- ============ FOOTER ============ -->
 <th:block th:fragment="footer">
+
     <footer class="footer">
+
         <div class="row">
+
             <div class="col">
-                <h3>CiberStore</h3>
-                <p>Tecnologia con garantia y buen precio.</p>
+
+                <h3>
+                    CiberStore
+                </h3>
+
+                <p>
+                    Tecnologia con garantia y buen precio.
+                </p>
+
             </div>
+
+
             <div class="col">
-                <h3>Enlaces</h3>
+
+                <h3>
+                    Enlaces
+                </h3>
+
                 <ul>
-                    <li><a th:href="@{/marcas}">Marcas</a></li>
-                    <li><a th:href="@{/nosotros}">Nosotros</a></li>
-                    <li><a th:href="@{/promociones}">Promociones</a></li>
+
+                    <li>
+                        <a th:href="@{/marcas}">
+                            Marcas
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/nosotros}">
+                            Nosotros
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/promociones}">
+                            Promociones
+                        </a>
+                    </li>
+
                 </ul>
+
             </div>
+
+
             <div class="col">
-                <h3>Contacto</h3>
+
+                <h3>
+                    Contacto
+                </h3>
+
                 <ul>
-                    <li>Lima, Peru</li>
-                    <li>contacto@ciberstore.pe</li>
+
+                    <li>
+                        Lima, Peru
+                    </li>
+
+                    <li>
+                        contacto@ciberstore.pe
+                    </li>
+
                 </ul>
+
             </div>
+
         </div>
-        <p>&copy; 2026 CiberStore - Proyecto academico CIBERTEC</p>
+
+
+        <p>
+            &copy; 2026 CiberStore - Proyecto academico CIBERTEC
+        </p>
+
     </footer>
+
 </th:block>
 
 </body>

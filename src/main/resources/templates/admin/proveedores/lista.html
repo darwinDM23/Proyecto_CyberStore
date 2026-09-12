@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/fragments :: head(titulo='Administrar proveedores')}"></head>
+
+<body>
+
+<div th:replace="~{layout/fragments :: header}"></div>
+
+<main>
+
+    <h1 class="titulo-seccion">Administrar proveedores</h1>
+
+    <div class="admin-toolbar">
+        <a class="btn" th:href="@{/admin/proveedores/nuevo}">
+            + Nuevo proveedor
+        </a>
+
+        <a class="btn" th:href="@{/admin/productos}">
+            Volver a productos
+        </a>
+    </div>
+
+    <table class="admin-tabla">
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>RUC</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr th:each="proveedor : ${proveedores}">
+            <td th:text="${proveedor.id}">1</td>
+            <td th:text="${proveedor.nombre}">Proveedor</td>
+            <td th:text="${proveedor.ruc}">20123456789</td>
+            <td th:text="${proveedor.email}">correo@proveedor.com</td>
+            <td th:text="${proveedor.telefono}">999999999</td>
+            <td th:text="${proveedor.direccion}">Dirección</td>
+
+            <td>
+                <a class="btn btn-small"
+                   th:href="@{'/admin/proveedores/' + ${proveedor.id} + '/editar'}">
+                    Editar
+                </a>
+
+                <form th:action="@{'/admin/proveedores/' + ${proveedor.id} + '/eliminar'}"
+                      method="post"
+                      style="display:inline;">
+
+                    <button type="submit"
+                            class="btn btn-small btn-danger"
+                            onclick="return confirm('¿Eliminar este proveedor?');">
+                        Eliminar
+                    </button>
+
+                </form>
+            </td>
+        </tr>
+
+        </tbody>
+
+    </table>
+
+    <p th:if="${#lists.isEmpty(proveedores)}"
+       style="text-align:center; padding:30px;">
+        No hay proveedores registrados.
+    </p>
+
+</main>
+
+<div th:replace="~{layout/fragments :: footer}"></div>
+
+</body>
+</html>

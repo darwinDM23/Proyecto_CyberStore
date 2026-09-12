@@ -53,9 +53,10 @@ public class CarritoController {
                                    @RequestParam String email,
                                    @RequestParam(required = false) String telefono,
                                    @RequestParam(required = false) String direccion,
+                                   @RequestParam String metodoPago,
                                    Model model) {
         try {
-            Venta venta = ventaService.confirmarCompra(carrito, nombre, email, telefono, direccion);
+            Venta venta = ventaService.confirmarCompra(carrito, nombre, email, telefono, direccion, metodoPago);
             model.addAttribute("venta", venta);
             return "carrito/confirmacion";
         } catch (RuntimeException ex) {

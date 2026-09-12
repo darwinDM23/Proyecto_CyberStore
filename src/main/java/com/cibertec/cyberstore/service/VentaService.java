@@ -36,7 +36,7 @@ public class VentaService {
 
     @Transactional
     public Venta confirmarCompra(Carrito carrito, String nombreCliente, String emailCliente,
-                                  String telefono, String direccion) {
+                                  String telefono, String direccion, String metodoPago) {
         if (carrito.isVacio()) {
             throw new IllegalStateException("El carrito esta vacio");
         }
@@ -49,6 +49,7 @@ public class VentaService {
         venta.setCliente(cliente);
         venta.setFecha(LocalDateTime.now());
         venta.setEstado(EstadoVenta.PAGADA);
+        venta.setMetodoPago(metodoPago);
 
         for (ItemCarrito item : carrito.getItems()) {
             Producto producto = productoRepository.findById(item.getProducto().getId())
@@ -74,7 +75,12 @@ public class VentaService {
     public List<Venta> listarTodas() {
         return ventaRepository.buscarTodasOrdenadasPorFecha();
     }
-
+    
+    @Transactional(readOnly = true)
+    public List<Venta> buscarPorCliente(String cliente) {
+    return ventaRepository.buscarPorCliente(cliente);
+    }
+    
     @Transactional(readOnly = true)
     public Venta buscarPorId(Long id) {
         return ventaRepository.findById(id)

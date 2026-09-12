@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head(titulo='Administrar clientes')}"></head>
+<body>
+
+    <div th:replace="~{layout/fragments :: header}"></div>
+
+    <main>
+        <h1 class="titulo-seccion">Administrar clientes</h1>
+
+        <div class="admin-toolbar">
+            <a class="btn" th:href="@{/admin/clientes/nuevo}">
+                + Nuevo cliente
+            </a>
+
+            <a class="btn" th:href="@{/admin/productos}">
+                Volver a productos
+            </a>
+        </div>
+
+        <table class="admin-tabla">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                    <th>Direccion</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.id}">1</td>
+                    <td th:text="${cliente.nombre}">Nombre</td>
+                    <td th:text="${cliente.email}">correo@ejemplo.com</td>
+                    <td th:text="${cliente.telefono}">999999999</td>
+                    <td th:text="${cliente.direccion}">Direccion</td>
+
+                    <td>
+                        <a class="btn btn-small"
+                           th:href="@{'/admin/clientes/' + ${cliente.id} + '/editar'}">
+                            Editar
+                        </a>
+
+                        <form th:action="@{'/admin/clientes/' + ${cliente.id} + '/eliminar'}"
+                              method="post"
+                              style="display:inline;">
+                            <button type="submit"
+                                    class="btn btn-small btn-danger"
+                                    onclick="return confirm('¿Eliminar este cliente?');">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p th:if="${#lists.isEmpty(clientes)}"
+           style="text-align:center; padding:30px;">
+            No hay clientes registrados.
+        </p>
+    </main>
+
+    <div th:replace="~{layout/fragments :: footer}"></div>
+
+</body>
+</html>

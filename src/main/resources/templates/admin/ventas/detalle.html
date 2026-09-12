@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/fragments :: head('Detalle de venta')}"></head>
+<head th:replace="~{layout/fragments :: head(titulo='Detalle de venta')}"></head>
 <body>
     <div th:replace="~{layout/fragments :: header}"></div>
 
@@ -12,6 +12,7 @@
             <p><strong>Correo:</strong> <span th:text="${venta.cliente.email}">correo</span></p>
             <p><strong>Fecha:</strong> <span th:text="${#temporals.format(venta.fecha, 'dd/MM/yyyy HH:mm')}">Fecha</span></p>
             <p><strong>Estado:</strong> <span th:text="${venta.estado}">PAGADA</span></p>
+            <p><strong>Metodo de pago:</strong> <span th:text="${venta.metodoPago}">Metodo</span></p>
         </div>
 
         <table class="carrito-tabla">

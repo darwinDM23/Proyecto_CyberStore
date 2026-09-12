@@ -35,6 +35,9 @@ public class Venta {
     @Column(nullable = false, length = 20)
     private EstadoVenta estado;
 
+    @Column(name = "metodo_pago", length = 30)
+    private String metodoPago;
+
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<DetalleVenta> detalles = new ArrayList<>();
 
@@ -85,7 +88,14 @@ public class Venta {
     public void setEstado(EstadoVenta estado) {
         this.estado = estado;
     }
+    
+    public String getMetodoPago() {
+    return metodoPago;
+    }
 
+    public void setMetodoPago(String metodoPago) {
+    this.metodoPago = metodoPago;
+    }
     public List<DetalleVenta> getDetalles() {
         return detalles;
     }

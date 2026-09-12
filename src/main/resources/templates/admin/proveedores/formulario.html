@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/fragments :: head(titulo=${proveedor.id} != null ? 'Editar proveedor' : 'Nuevo proveedor')}"></head>
+
+<body>
+
+<div th:replace="~{layout/fragments :: header}"></div>
+
+<main>
+
+    <h1 class="titulo-seccion"
+        th:text="${proveedor.id} != null ? 'Editar proveedor' : 'Nuevo proveedor'">
+        Proveedor
+    </h1>
+
+    <form class="admin-form"
+          th:action="@{/admin/proveedores/guardar}"
+          method="post"
+          th:object="${proveedor}">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <label>Nombre</label>
+        <input type="text"
+               th:field="*{nombre}"
+               required/>
+
+        <label>RUC</label>
+        <input type="text"
+               th:field="*{ruc}"/>
+
+        <label>Correo electrónico</label>
+        <input type="email"
+               th:field="*{email}"/>
+
+        <label>Teléfono</label>
+        <input type="text"
+               th:field="*{telefono}"/>
+
+        <label>Dirección</label>
+        <input type="text"
+               th:field="*{direccion}"/>
+
+        <div style="text-align:center; margin-top:20px;">
+            <button type="submit" class="btn">
+                Guardar
+            </button>
+
+            <a class="btn btn-danger"
+               th:href="@{/admin/proveedores}">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+
+</main>
+
+<div th:replace="~{layout/fragments :: footer}"></div>
+
+</body>
+</html>
