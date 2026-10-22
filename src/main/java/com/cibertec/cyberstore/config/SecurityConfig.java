@@ -10,20 +10,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    // ENCRIPTADOR DE CONTRASENAS
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // CADENA DE FILTROS DE SEGURIDAD
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
             .authorizeHttpRequests(auth -> auth
 
-                // =====================================================
                 // PAGINAS Y RECURSOS PUBLICOS
-                // =====================================================
                 .requestMatchers(
                         "/",
                         "/login",
@@ -36,44 +36,42 @@ public class SecurityConfig {
                         "/marcas/**",
                         "/nosotros/**",
                         "/promociones/**",
-                        "/error"
+                        "/error",
+                        "/h2-console/**"
                 ).permitAll()
 
-                // =====================================================
                 // ADMINISTRADOR Y ALMACENERO
-                // Gestion de productos e inventario
-                // =====================================================
                 .requestMatchers("/admin/productos/**")
                 .hasAnyRole("ADMIN", "ALMACENERO")
 
                 .requestMatchers("/admin/proveedores/**")
                 .hasAnyRole("ADMIN", "ALMACENERO")
 
-                // =====================================================
                 // ADMINISTRADOR Y VENDEDOR
-                // Gestion de ventas y clientes
-                // =====================================================
                 .requestMatchers("/admin/ventas/**")
                 .hasAnyRole("ADMIN", "VENDEDOR")
 
                 .requestMatchers("/admin/clientes/**")
                 .hasAnyRole("ADMIN", "VENDEDOR")
 
-                // =====================================================
-                // CUALQUIER OTRA RUTA ADMINISTRATIVA
-                // Solo administrador
-                // =====================================================
+                // SOLO ADMINISTRADOR
                 .requestMatchers("/admin/**")
                 .hasRole("ADMIN")
 
-                // Cualquier otra ruta necesita iniciar sesion
+                // CUALQUIER OTRA RUTA
                 .anyRequest()
                 .authenticated()
             )
 
-            // =========================================================
+            // AJUSTES PARA LA CONSOLA H2
+            .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/h2-console/**")
+            )
+            .headers(headers -> headers
+                .frameOptions(frame -> frame.sameOrigin())
+            )
+
             // LOGIN
-            // =========================================================
             .formLogin(form -> form
                 .loginPage("/login")
                 .usernameParameter("username")
@@ -83,16 +81,12 @@ public class SecurityConfig {
                 .permitAll()
             )
 
-            // =========================================================
-            // ACCESO DENEGADO - ERROR 403
-            // =========================================================
+            // ACCESO DENEGADO
             .exceptionHandling(exception -> exception
                 .accessDeniedPage("/acceso-denegado")
             )
 
-            // =========================================================
             // CERRAR SESION
-            // =========================================================
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>fragmentos</title>
@@ -9,8 +10,11 @@
 
 <!-- ============ HEAD comun ============ -->
 <th:block th:fragment="head(titulo)">
+
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0"/>
 
     <title th:text="${titulo} + ' | CiberStore'">
         CiberStore
@@ -21,6 +25,7 @@
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+
 </th:block>
 
 
@@ -56,9 +61,11 @@
                        th:value="${busqueda}"/>
 
                 <button type="submit"
-                        style="background:none;
-                               border:none;
-                               cursor:pointer;">
+                        style="
+                            background:none;
+                            border:none;
+                            cursor:pointer;
+                        ">
 
                     <i class="fa-solid fa-magnifying-glass icon"></i>
 
@@ -82,6 +89,35 @@
 
             </a>
 
+
+            <!-- ============ USUARIO CONECTADO ============ -->
+            <div sec:authorize="isAuthenticated()"
+                 style="
+                    color:white;
+                    margin-left:15px;
+                    display:flex;
+                    align-items:center;
+                    gap:8px;
+                    font-size:14px;
+                 ">
+
+                <span sec:authorize="hasRole('ADMIN')">
+                    <i class="fa-solid fa-user-shield"></i>
+                    Administrador
+                </span>
+
+                <span sec:authorize="hasRole('VENDEDOR')">
+                    <i class="fa-solid fa-user"></i>
+                    Vendedor
+                </span>
+
+                <span sec:authorize="hasRole('ALMACENERO')">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    Almacenero
+                </span>
+
+            </div>
+
         </div>
 
     </header>
@@ -91,6 +127,7 @@
     <div class="marcador-container">
 
         <ul class="marcador">
+
 
             <!-- PRODUCTOS -->
             <li class="menu-despegable">
@@ -132,38 +169,47 @@
 
             <!-- MARCAS -->
             <li>
+
                 <a th:href="@{/marcas}">
                     Marcas
                 </a>
+
             </li>
 
 
             <!-- MIS COMPRAS -->
             <li>
+
                 <a th:href="@{/carrito}">
                     Mis Compras
                 </a>
+
             </li>
 
 
             <!-- NOSOTROS -->
             <li>
+
                 <a th:href="@{/nosotros}">
                     Nosotros
                 </a>
+
             </li>
 
 
             <!-- PROMOCIONES -->
             <li>
+
                 <a th:href="@{/promociones}">
                     Promociones
                 </a>
+
             </li>
 
 
             <!-- ADMINISTRACION -->
-            <li class="menu-despegable">
+            <li class="menu-despegable"
+                sec:authorize="hasAnyRole('ADMIN','ALMACENERO','VENDEDOR')">
 
                 <a href="#">
                     Administracion
@@ -171,28 +217,44 @@
 
                 <ul class="sub-menu">
 
-                    <li>
+
+                    <!-- PRODUCTOS -->
+                    <li sec:authorize="hasAnyRole('ADMIN','ALMACENERO')">
+
                         <a th:href="@{/admin/productos}">
                             Productos
                         </a>
+
                     </li>
 
-                    <li>
+
+                    <!-- CLIENTES -->
+                    <li sec:authorize="hasAnyRole('ADMIN','VENDEDOR')">
+
                         <a th:href="@{/admin/clientes}">
                             Clientes
                         </a>
+
                     </li>
 
-                    <li>
+
+                    <!-- PROVEEDORES -->
+                    <li sec:authorize="hasAnyRole('ADMIN','ALMACENERO')">
+
                         <a th:href="@{/admin/proveedores}">
                             Proveedores
                         </a>
+
                     </li>
 
-                    <li>
+
+                    <!-- VENTAS -->
+                    <li sec:authorize="hasAnyRole('ADMIN','VENDEDOR')">
+
                         <a th:href="@{/admin/ventas}">
                             Mis Ventas
                         </a>
+
                     </li>
 
 
@@ -217,6 +279,7 @@
                                     ">
 
                                 <i class="fa-solid fa-right-from-bracket"></i>
+
                                 Cerrar sesion
 
                             </button>
@@ -242,6 +305,7 @@
     <footer class="footer">
 
         <div class="row">
+
 
             <div class="col">
 
@@ -319,4 +383,5 @@
 </th:block>
 
 </body>
+
 </html>
